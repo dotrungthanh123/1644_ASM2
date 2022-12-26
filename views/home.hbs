@@ -14,7 +14,7 @@
 <body>
 
   {{!-- NAVBAR --}}
-  <nav class="navbar navbar-expand bg-body-secondary">
+  <nav class="navbar fixed-top navbar-expand bg-body-secondary">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">ATN</a>
       <ul class="navbar-nav my-auto me-auto">
@@ -25,17 +25,26 @@
   </nav>
 
   {{!-- ALL ITEMS --}}
-  <div class="mt-4 mx-5 row g-0 d-flex justify-content-center">
+  <div class="mt-4 mx-5 row g-0 pt-5">
+    <h1 class="text-center fw-light mb-3">ALL PRODUCT</h1>
     {{#each items}}
-      <div class="col-12 col-md-6 col-lg-4 g-0 my-3 d-flex justify-content-center">
-      <div class="card" style="width: 15rem;">
-        <img src="{{img}}" class="card-img-top" alt="...">
+    <div class="col-12 col-lg-6 col-xxl-4 g-0 my-3 d-flex justify-content-center">
+      <div class="card" style="width: 25rem;">
+        <div class="container text-center">
+          <img src="{{img}}" style="height: 18rem; width: auto;" class="card-img-top p-3" alt="{{item}}">
+        </div>
         <div class="card-body">
-          <h5 class="card-title text-center">{{item}}</h5>
-          <p class="card-text px-3 mb-3 m-auto">{{description}}</p>
+          <div class="container d-flex justify-content-center" style="height: 3.5rem;">
+            <h5 class="card-title">{{item}}</h5>
+          </div>
+          <p class="card-text px-3 mb-1" style="height: 8rem;">{{description}}</p>
+          <div class="container text-center mb-3">
+            <span class="fs-4">{{price}}$</span>
+          </div>
           <div class="row m-0 justify-content-around">
             <a href="/edit?id={{_id}}" class="col-5 btn btn-md btn-primary">Edit</a>
-            <a href="/delete?id={{_id}}" class="col-5 btn btn-md btn-primary">Delete</a>
+            <a href="/delete?id={{_id}}" onclick="return confirm('Do you really want to delete this item?')"
+              class="col-5 btn btn-md btn-primary">Delete</a>
           </div>
         </div>
       </div>

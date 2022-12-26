@@ -39,8 +39,8 @@ app.get('/delete', async(req, res) => {
 })
 
 app.get('/edit', async(req, res) => {
-    const item = await getItem(res.query.id)
-    res.render('edit', { product: item })
+    item = await getItem(req.query.id)
+    res.render('edit', { item: item })
 })
 
 app.post('/edit', async(req, res) => {
@@ -49,7 +49,7 @@ app.post('/edit', async(req, res) => {
     const price = Number.parseFloat(req.body.price)
     const img = req.body.img
     const description = req.body.description
-    await updateProduct(id, item, price, img, description)
+    await editItem(id, item, price, img, description)
     res.redirect('/')
 })
 
