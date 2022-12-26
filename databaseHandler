@@ -1,0 +1,40 @@
+const { ObjectId } = require('bson')
+var { MongoClient } = require('mongodb')
+
+const uri = 'mongodb+srv://dotrungthanh:dotrungthanh@cluster0.d0if6r0.mongodb.net/?retryWrites=true&w=majority'
+
+async function getDB() {
+    return (await MongoClient.connect(uri)).db('1644_ASM2')
+}
+
+async function addItem(item) {
+    let db = await getDB()
+    const result = await db.collection('items').insertOne(item)
+    return result
+}
+
+async function getAllItems() {
+    let db = await getDB()
+    let items = await db.collection('items').find().toArray()
+    return items
+}
+
+async function deleteItem(id) {
+    let db = await getDB()
+    const result = await db.collection('items').deleteOne({ _id: ObjectId(id) })
+}
+
+async function getItem(id) {
+    let db = await getDB()
+    const item = await db.collection('items').findOne({ _id: ObjectId(id) })
+    return item
+}
+
+async function editItem(id, item, price, img, description) {
+    let db = await getDB()
+    await db.collection('items').updateOne({ _id: ObjectId(id) }, {
+        $set: { 'item': item, 'price': price, 'img': img, 'description': description }
+    })
+}
+
+module.exports = { addItem, getAllItems, deleteItem, getItem, editItem }
