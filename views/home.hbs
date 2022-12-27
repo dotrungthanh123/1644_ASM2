@@ -39,11 +39,11 @@
           </div>
           <p class="card-text px-3 mb-1" style="height: 8rem;">{{description}}</p>
           <div class="container text-center mb-3">
-            <span class="fs-4">{{price}}$</span>
+            <span class="fs-4" id="price">{{price}}</span>$
           </div>
           <div class="row m-0 justify-content-around">
             <a href="/edit?id={{_id}}" class="col-5 btn btn-md btn-primary">Edit</a>
-            <a href="/delete?id={{_id}}" onclick="return confirm('Do you really want to delete this item?')"
+            <a href="/delete?id={{_id}}" onclick="return confirm('Do you really want to delete this item')"
               class="col-5 btn btn-md btn-primary">Delete</a>
           </div>
         </div>
@@ -51,6 +51,15 @@
     </div>
     {{/each}}
   </div>
+  <script>
+    function priceColor() {
+      const a = document.querySelectorAll("#price")
+      for (let i = 0; i < a.length; i++) {
+        if (parseFloat(a[i].innerHTML) > 50) a[i].style.color = "red"
+      }
+    }
+    priceColor()
+  </script>
 </body>
 
 </html>

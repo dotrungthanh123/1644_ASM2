@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const alert = require('alert')
 app.use(express.static('public'))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
@@ -18,19 +19,25 @@ app.get('/add', (req, res) => {
 })
 
 app.post('/add', async(req, res) => {
-    const item = req.body.item
-
-    const price = req.body.price
+    let alert
+    const item = String(req.body.item)
+    if (item.length < 10 || item.length > 20)
+        alert = true
+    const price = String(req.body.price)
     const description = req.body.description
     const img = req.body.img
     const newItem = {
-        item: item,
-        price: Number.parseFloat(price),
-        img: img,
-        description: description
-    }
+            item: item,
+            price: Number.parseFloat(price),
+            img: img,
+            description: description
+        }
+        // if (alert)
+        //     res.render('add', { item: newItem, alert: alert })
+        // else {
     await addItem(newItem)
     res.redirect('/')
+        // }
 })
 
 app.get('/delete', async(req, res) => {
