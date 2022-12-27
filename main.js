@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const alert = require('alert')
 app.use(express.static('public'))
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({ extended: true }))
